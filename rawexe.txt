@@ -1,0 +1,722 @@
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	VA/FK, 17/02/2025 17:31:53
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE  
+CISPR.AVG/Lim.Avg (2)
+Frequency (MHz)	SR	CISPR.AVG (dBÂµV/m)	Lim.Avg (dBÂµV/m)	CISPR.AVG-Lim.Avg (dB)	Polarization	Correction (dB)
+1.25425	1	18.35	44.00	-25.65	Vertical	9.92
+27.25975	2	4.57	28.00	-23.43	Vertical	10.29
+
+Peak/Lim.Q-Peak (2)
+Frequency (MHz)	SR	Peak (dBÂµV/m)	Lim.Q-Peak (dBÂµV/m)	Peak-Lim.Q-Peak (dB)	Polarization	Correction (dB)
+1.25875	1	33.25	51.00	-17.75	Vertical	9.92
+27.26875	2	22.15	45.00	-22.85	Vertical	10.29
+
+Q-Peak/Lim.Q-Peak (2)
+Frequency (MHz)	SR	Q-Peak (dBÂµV/m)	Lim.Q-Peak (dBÂµV/m)	Q-Peak-Lim.Q-Peak (dB)	Polarization	Correction (dB)
+1.2565	1	31.39	51.00	-19.61	Vertical	9.92
+27.25975	2	16.05	45.00	-28.95	Vertical	10.29
+
+Peak/Lim.Peak (2)
+Frequency (MHz)	SR	Peak (dBÂµV/m)	Lim.Peak (dBÂµV/m)	Peak-Lim.Peak (dB)	Polarization	Correction (dB)
+1.25875	1	33.25	64.00	-30.75	Vertical	9.92
+27.26875	2	22.15	58.00	-35.85	Vertical	10.29
+
+
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz
+
+name	100kHz-10MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz
+step	2.25kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 9kHz-30MHz_rod	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	10MHz-30MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz
+step	2.25kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 9kHz-30MHz_rod	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 17/02/2025 19:07:22
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz_GNSS
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 17/02/2025 19:42:32
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	VA/FK, 18/02/2025 16:36:12
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	VA/FK, 18/02/2025 16:40:27
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of harness RBW 1MHz With PA
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of harness RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	VA/FK, 18/02/2025 16:13:21
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 18/02/2025 16:30:13
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	, Invalid DateTime
+Test Configuration:	Antenna position:, DUT Orientation:, Housing connected to the ground plane:, Configuration of the power return line LV:, 
+Operating mode:	, Conclusion : 
+GraphiqueEMIRE 
+ 
+Test parameters
+Name test:	****************Y-axis********************
+
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 18/02/2025 07:43:05
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 19/02/2025 15:27:53
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis Y, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 19/02/2025 15:31:48
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis Y, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	VA/FK, 20/02/2025 14:53:02
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	Invest CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+
+name	1.156GHz-1.617GHz		filename	Invest CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.156GHz-1.617GHz		filename	Invest CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	, Invalid DateTime
+Test Configuration:	Antenna position:, DUT Orientation:, Housing connected to the ground plane:, Configuration of the power return line LV:, 
+Operating mode:	, Conclusion : 
+GraphiqueEMIRE 
+ 
+Test parameters
+Name test:	****************Z-axis********************
+
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 18/02/2025 07:54:39
+Test Configuration:	Antenna position:in front of harness, DUT Orientation:axis X, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.156GHz-1.617GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 9kHz_GNSS
+step	2.25kHz	pre-amplifier	ON
+set up	USE_CRE2_RESAC (A) 1.1-1.7GHz_GPS_horn	number of sweeping	3
+RBW	9kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 20/02/2025 11:12:24
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis Z, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	30MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-1GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	1.805GHz-1.995GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 120kHz With PA
+step	30kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	120kHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+EQ/MR 01: Measurement of radio frequency radiated emission test
+
+Sample:	CRE2-2025-TP002-02
+Project:	CRE2-2025-TP002 RESAC
+Operator:	NDN/WD, 20/02/2025 09:26:46
+Test Configuration:	Antenna position:in front of DUT, DUT Orientation:axis Z, Housing connected to the ground plane:no, Configuration of the power return line LV:remotely grounded, -
+Operating mode:	Mode 3, Conclusion : not comply
+GraphiqueEMIRE   
+ 
+Test parameters
+Name test:	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	171MHz-200MHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 20MHz-300MHz_biconical with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	200MHz-2GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 200MHz-2GHz_log-periodic with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+
+name	2GHz-6GHz		filename	CRE2-2025-TP002-02_ER_In front of DUT RBW 1MHz With PA
+step	250kHz	pre-amplifier	OFF
+set up	USE_CRE2_RESAC (A) 1-7GHz_horn with preamp	number of sweeping	3
+RBW	1MHz	dynamic	120 dB
+Span	0.1 MHz	reference level	70 dBµV
+VBW	Auto	RF attenuation	0 dB
+sweep time	1000 ms/Step	RF attenuation min	
+Maxhold	5 s		
+

@@ -1,0 +1,9 @@
+Frequency (MHz),SR,Polarization,Correction (dB),Comment,Sample ID,Mesure (dBµV/m),Detector type,Margin (dB),Overtaking (dB),Conformity,Configuration,Limite (dBµV/m)
+1.162,1.0,Vertical,9.91,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+27.262,2.0,Vertical,10.29,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+1.162,1.0,Vertical,9.91,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+27.2665,2.0,Vertical,10.29,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+1.162,1.0,Vertical,9.91,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+27.262,2.0,Vertical,10.29,-,CRE2-2025-TP002-03,,Peak,N/A,-,-,ER_In front of harness RBW 9kHz,
+1.19125,1.0,Vertical,9.91,-,CRE2-2025-TP002-03,-25.71,,69.71,-,OK,ER_In front of harness RBW 9kHz,44.0
+27.3475,2.0,Vertical,10.29,-,CRE2-2025-TP002-03,-21.83,,49.83,-,OK,ER_In front of harness RBW 9kHz,28.0

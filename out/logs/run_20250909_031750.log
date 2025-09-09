@@ -1,0 +1,119 @@
+2025-09-09 03:17:50,608 INFO: === Début traitement de tous les fichiers RAW ===
+2025-09-09 03:17:50,609 INFO: Traitement de raw01.docx...
+2025-09-09 03:17:50,610 INFO: === Début traitement du fichier RAW ===
+2025-09-09 03:17:50,610 INFO: Fichier : raw\raw01.docx
+2025-09-09 03:17:55,458 INFO: Nombre de Sample ID trouvés : 1
+2025-09-09 03:17:55,458 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
+2025-09-09 03:17:55,458 INFO:   - Paramètres : 3
+2025-09-09 03:17:55,458 INFO:   - Configurations : 13
+2025-09-09 03:17:55,460 INFO:     Configuration ER_In front of harness RBW 9kHz : 8 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of harness RBW 120kHz With PA : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of harness RBW 1MHz With PA : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:17:55,461 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,461 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,462 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,462 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,462 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,462 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:55,462 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:17:55,462 INFO:     - Verdict global : OK
+2025-09-09 03:17:56,239 INFO: Exports générés : out/Processed_RAW01.docx, out/Processed_RAW01.csv, out/Processed_RAW01.xlsx
+2025-09-09 03:17:56,239 INFO: === Fin traitement ===
+2025-09-09 03:17:56,239 INFO: \u2705 raw01.docx traité avec succès
+2025-09-09 03:17:56,240 INFO: Traitement de raw02.docx...
+2025-09-09 03:17:56,241 INFO: === Début traitement du fichier RAW ===
+2025-09-09 03:17:56,241 INFO: Fichier : raw\raw02.docx
+2025-09-09 03:18:01,197 INFO: Nombre de Sample ID trouvés : 1
+2025-09-09 03:18:01,197 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
+2025-09-09 03:18:01,197 INFO:   - Paramètres : 3
+2025-09-09 03:18:01,197 INFO:   - Configurations : 13
+2025-09-09 03:18:01,197 INFO:     Configuration ER_In front of harness RBW 9kHz : 8 mesures
+2025-09-09 03:18:01,197 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,197 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:01,197 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of harness RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of harness RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,198 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:01,198 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,199 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:01,199 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,199 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:01,199 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,199 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:01,199 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,199 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:01,199 INFO:     - Verdict global : OK
+2025-09-09 03:18:01,643 INFO: Exports générés : out/Processed_RAW02.docx, out/Processed_RAW02.csv, out/Processed_RAW02.xlsx
+2025-09-09 03:18:01,643 INFO: === Fin traitement ===
+2025-09-09 03:18:01,643 INFO: \u2705 raw02.docx traité avec succès
+2025-09-09 03:18:01,643 INFO: Traitement de raw03.docx...
+2025-09-09 03:18:01,645 INFO: === Début traitement du fichier RAW ===
+2025-09-09 03:18:01,645 INFO: Fichier : raw\raw03.docx
+2025-09-09 03:18:08,121 INFO: Nombre de Sample ID trouvés : 2
+2025-09-09 03:18:08,121 INFO: Traitement du Sample ID : CRE2-2025-TP002-03
+2025-09-09 03:18:08,121 INFO:   - Paramètres : 3
+2025-09-09 03:18:08,121 INFO:   - Configurations : 9
+2025-09-09 03:18:08,121 INFO:     Configuration ER_In front of harness RBW 9kHz : 8 mesures
+2025-09-09 03:18:08,121 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,121 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of harness RBW 120kHz WIth PA : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of harness RBW 1MHz WIth PA : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of DUT RBW 120kHz WIth PA : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:08,122 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,122 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,123 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,123 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
+2025-09-09 03:18:08,123 INFO:   - Paramètres : 3
+2025-09-09 03:18:08,123 INFO:   - Configurations : 4
+2025-09-09 03:18:08,123 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,123 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,123 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,123 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 03:18:08,123 INFO:     - Verdict global : OK
+2025-09-09 03:18:08,393 INFO: Exports générés : out/Processed_RAW03.docx, out/Processed_RAW03.csv, out/Processed_RAW03.xlsx
+2025-09-09 03:18:08,393 INFO: === Fin traitement ===
+2025-09-09 03:18:08,394 INFO: \u2705 raw03.docx traité avec succès
+2025-09-09 03:18:08,394 INFO: === Résumé du traitement ===
+2025-09-09 03:18:08,394 INFO: Fichiers traités avec succès: 3
+2025-09-09 03:18:08,394 INFO: Fichiers en erreur: 0
+2025-09-09 03:18:08,394 INFO:   \u2705 raw01.docx \u2192 out/Processed_RAW01.docx
+2025-09-09 03:18:08,394 INFO:   \u2705 raw02.docx \u2192 out/Processed_RAW02.docx
+2025-09-09 03:18:08,394 INFO:   \u2705 raw03.docx \u2192 out/Processed_RAW03.docx
+2025-09-09 03:18:08,394 INFO: === Fin traitement de tous les fichiers RAW ===

@@ -1,0 +1,7 @@
+2025-09-08 23:46:31,596 INFO: === Début traitement du fichier RAW ===
+2025-09-08 23:46:31,596 INFO: Fichier : raw/raw01.docx
+2025-09-08 23:46:31,737 INFO: Paramètres extraits : 0
+2025-09-08 23:46:31,737 INFO: Lignes de mesures extraites : 8
+2025-09-08 23:46:31,737 INFO: Verdict global : OK
+2025-09-08 23:46:32,498 INFO: Exports générés : out/Processed_RAW01.docx, out/Processed_RAW01.csv, out/Processed_RAW01.xlsx
+2025-09-08 23:46:32,499 INFO: === Fin traitement ===
