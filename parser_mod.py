@@ -164,7 +164,7 @@ def extract_all_configurations(doc):
     return configurations
 
 
-def extract_test_params_for_configuration(doc, sample_id, config_name, debug=False):
+def extract_test_params_for_configuration(doc, sample_id, config_name, debug=True):
     """
     Extrait les paramètres de test pour une configuration spécifique.
     Robuste :
@@ -239,12 +239,19 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Fal
                     print("    -> ligne vide, skip")
                 continue
 
-            # cas 1 : valeur présente dans cell[1]
+            # cas 1 : valeur présente dans cell[1] ou cellules suivantes
             key_text = ""
             value_text = ""
-            if len(cells) >= 2 and cells[1].strip():
+            if len(cells) >= 2:
                 key_text = cells[0]
-                value_text = cells[1]
+                # Chercher la première cellule non-vide après la clé
+                for i in range(1, len(cells)):
+                    if cells[i].strip() and not cells[i].strip().endswith(":"):
+                        value_text = cells[i]
+                        break
+                # Si la valeur contient encore la clé (ex: "Operator:"), prendre la partie après ':'
+                if ":" in value_text and value_text.strip().endswith(":"):
+                    value_text = ""
             else:
                 # cas 2 : tout dans cell[0] comme "Operator: NDN/WD, 17/02/2025..."
                 cell0 = cells[0]
@@ -276,6 +283,7 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Fal
                 continue
 
             found_any = True
+            print(f"    -> clé trouvée: {key_norm}, valeur: {value_norm}")
 
             # mapping des clés (cherchez des sous-chaînes, ce qui rend la détection tolérante)
             if "sample" in key_norm:
@@ -293,9 +301,10 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Fal
                     parts = value_norm.split("conclusion", 1)
                     test_params["Operating mode"] = parts[0].replace(":", "").strip().rstrip(",")
                     # extraire la conclusion si présente après 'conclusion'
-                    rest = parts[1].replace(":", "").strip()
-                    if rest:
-                        test_params["Conclusion"] = rest
+                    if len(parts) > 1:
+                        rest = parts[1].replace(":", "").strip()
+                        if rest:
+                            test_params["Conclusion"] = rest
                 else:
                     test_params["Operating mode"] = value_norm
             elif "conclusion" in key_norm:
@@ -328,7 +337,8 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Fal
                     parts = txt.split(":", 1)
                     k = normalize_key(parts[0])
                     v = normalize_text(parts[1])
-                    if not v:
+                    # Ignorer si valeur vide ou si c'est juste la clé répétée
+                    if not v or v.strip().endswith(":") or v.strip() == k:
                         continue
                     if "project" in k and "Project" not in test_params:
                         test_params["Project"] = v
@@ -419,17 +429,19 @@ def extract_measurements_for_configuration(doc, sample_id, config_name):
             if isinstance(table_measurements, list) and len(table_measurements) > 0:
                 # Éviter les doublons en vérifiant si la mesure existe déjà
                 for measure in table_measurements:
-                    # Créer une clé unique basée sur la fréquence et la mesure
+                    # Créer une clé unique basée sur la fréquence, la mesure ET le type de limite
                     freq = measure.get("Frequency (MHz)", "")
                     mes = measure.get("Mesure (dBµV/m)", "")
-                    key = f"{freq}_{mes}"
+                    limite = measure.get("Limite (dBµV/m)", "")
+                    detector = measure.get("Detector type", "")
+                    key = f"{freq}_{mes}_{limite}_{detector}"
                     
                     # Vérifier si cette mesure existe déjà
-                    existing_keys = [f"{m.get('Frequency (MHz)', '')}_{m.get('Mesure (dBµV/m)', '')}" for m in measurements]
+                    existing_keys = [f"{m.get('Frequency (MHz)', '')}_{m.get('Mesure (dBµV/m)', '')}_{m.get('Limite (dBµV/m)', '')}_{m.get('Detector type', '')}" for m in measurements]
                     if key not in existing_keys:
                         measurements.append(measure)
                     else:
-                        print(f"    Mesure dupliquée ignorée: {freq} MHz, {mes} dBµV/m")
+                        print(f"    Mesure dupliquée ignorée: {freq} MHz, {mes} dBµV/m, {limite} dBµV/m, {detector}")
                 
                 print(f"  Ajouté {len(table_measurements)} mesures du tableau {check_idx}")
             else:
@@ -487,7 +499,7 @@ def extract_measurements_from_table(table, sample_id):
             val = values[i] if i < len(values) else ""
             h_low = h.lower()
 
-            print(f"    Mapping colonne {i}: '{h}' -> '{h_low}' -> Valeur: '{val}'")
+            # print(f"    Mapping colonne {i}: '{h}' -> '{h_low}' -> Valeur: '{val}'")
 
             if "frequency" in h_low:
                 print(f"      -> Frequency: {val}")
@@ -495,22 +507,22 @@ def extract_measurements_from_table(table, sample_id):
             elif h_low == "sr" or h_low.strip() == "sr":
                 print(f"      -> SR: {val}")
                 row_dict["S R"] = clean_decimal(val)
-            elif "cispr" in h_low and "avg" in h_low and "lim" not in h_low:
+            elif "cispr" in h_low and "avg" in h_low and "lim" not in h_low and "limit" not in h_low:
                 print(f"      -> CISPR.AVG: {val}")
                 row_dict["Mesure (dBµV/m)"] = clean_decimal(val)
                 row_dict["Detector type"] = "CISPR.AVG"
                 row_dict["Section"] = "CISPR.AVG"
-            elif "q-peak" in h_low and "lim" not in h_low:
+            elif "q-peak" in h_low and "lim" not in h_low and "limit" not in h_low:
                 print(f"      -> Q-Peak: {val}")
                 row_dict["Mesure (dBµV/m)"] = clean_decimal(val)
                 row_dict["Detector type"] = "Q-Peak"
                 row_dict["Section"] = "Q-Peak"
-            elif "peak" in h_low and "lim" not in h_low and "q-peak" not in h_low and "-" not in h_low:
+            elif "peak" in h_low and "lim" not in h_low and "limit" not in h_low and "q-peak" not in h_low and "-" not in h_low:
                 print(f"      -> Peak: {val}")
                 row_dict["Mesure (dBµV/m)"] = clean_decimal(val)
                 row_dict["Detector type"] = "Peak"
                 row_dict["Section"] = "Peak"
-            elif ("lim" in h_low or "limit" in h_low) and ("avg" in h_low or "peak" in h_low or "q-peak" in h_low):
+            elif ("lim" in h_low or "limit" in h_low) and ("avg" in h_low or "peak" in h_low or "q-peak" in h_low) and "cispr" not in h_low:
                 print(f"      -> Limite: {val}")
                 row_dict["Limite (dBµV/m)"] = clean_decimal(val)
             elif "margin" in h_low or ("-" in h_low and ("peak" in h_low or "avg" in h_low or "q-peak" in h_low)):

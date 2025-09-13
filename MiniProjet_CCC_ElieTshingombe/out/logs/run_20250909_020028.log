@@ -1,9 +1,0 @@
-2025-09-09 02:00:28,415 INFO: === Début traitement du fichier RAW ===
-2025-09-09 02:00:28,417 INFO: Fichier : raw/raw01.docx
-2025-09-09 02:00:32,276 INFO: Nombre de Sample ID trouvés : 1
-2025-09-09 02:00:32,276 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
-2025-09-09 02:00:32,278 INFO:   - Paramètres : 3
-2025-09-09 02:00:32,278 INFO:   - Mesures : 8
-2025-09-09 02:00:32,278 INFO:   - Verdict global : OK
-2025-09-09 02:00:33,924 INFO: Exports générés : out/Processed_RAW01.docx, out/Processed_RAW01.csv, out/Processed_RAW01.xlsx
-2025-09-09 02:00:33,924 INFO: === Fin traitement ===

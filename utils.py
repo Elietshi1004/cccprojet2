@@ -116,8 +116,10 @@ def init_logger(out_dir="out/logs"):
     return logging.getLogger()
 
 HEADER_MAP = {
+    "limit peak": "Limit Peak (dBµV/m)",
+    "limit avg": "Limit Avg (dBµV/m)", 
+    "limit q-peak": "Limit Q-Peak (dBµV/m)",
     "cispr avg": "CISPR.AVG (dBµV/m)",
-    "limit avg": "Lim.Avg (dBµV/m)",
     "frequency": "Frequency (MHz)",
     "detector": "Detector type",
     "comment": "Comment",
@@ -133,7 +135,33 @@ HEADER_MAP = {
 def normalize_header(h: str) -> str:
     """ Normalise les en-têtes pour éviter KeyError """
     h_clean = h.strip().lower()
-    for key, std in HEADER_MAP.items():
+    
+    # Traiter les mappings les plus spécifiques en premier (ordre de priorité)
+    # IMPORTANT: Les colonnes de marge doivent être détectées AVANT les colonnes de limite
+    priority_mappings = [
+        ("cispr avg-limit avg", "Margin (dB)"),       # CISPR.AVG-Lim.Avg (dB) - pattern exact
+        ("peak-limit peak", "Margin (dB)"),           # Peak-Lim.Peak (dB)
+        ("q-peak-limit q-peak", "Margin (dB)"),       # Q-Peak-Lim.Q-Peak (dB)
+        ("peak-limit", "Margin (dB)"),                # Peak-Lim.Q-Peak (dB) - pattern plus général
+        ("cispr-limit", "Margin (dB)"),               # CISPR.AVG-Lim.Avg (dB) - pattern plus général
+        ("q-peak-limit", "Margin (dB)"),              # Q-Peak-Lim.Q-Peak (dB) - pattern plus général
+        ("limit peak", "Limit Peak (dBµV/m)"),
+        ("limit avg", "Limit Avg (dBµV/m)"),
+        ("limit q-peak", "Limit Q-Peak (dBµV/m)"),
+        ("cispr avg", "CISPR.AVG (dBµV/m)"),
+        ("q-peak", "Q-Peak (dBµV/m)"),                # Q-Peak AVANT Peak pour éviter les conflits
+        ("peak", "Peak (dBµV/m)"),
+        ("cispr", "CISPR.AVG (dBµV/m)"),
+        ("frequency", "Frequency (MHz)"),
+        ("detector", "Detector type"),
+        ("comment", "Comment"),
+        ("applied limit", "Applied limit"),
+        ("margin", "Margin (dB)"),
+        ("antenna position", "Antenna Position"),
+        ("polarization", "Polarization")
+    ]
+    
+    for key, std in priority_mappings:
         if key in h_clean:
             return std
     return h  # défaut si pas trouvé
