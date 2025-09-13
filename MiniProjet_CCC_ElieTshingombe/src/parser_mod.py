@@ -357,7 +357,6 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Tru
     return test_params
 
 
-# Fonction supprimée - remplacée par extract_measurements_for_configuration
 
 
 def extract_measurements_for_configuration(doc, sample_id, config_name):

@@ -19,7 +19,7 @@ Projet: Mini-projet CCC - Automatisation du traitement des RAW DATA
 # CONFIGURATION GÉNÉRALE
 # ========================================================================
 
-# Nom du candidat (à modifier avec le vrai nom)
+
 CANDIDATE_NAME = "ElieTshingombe"
 
 # Nom du projet
