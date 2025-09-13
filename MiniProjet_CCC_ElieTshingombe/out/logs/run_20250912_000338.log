@@ -1,0 +1,20 @@
+2025-09-12 00:03:38,349 INFO: === Début traitement du fichier RAW ===
+2025-09-12 00:03:38,350 INFO: Fichier : raw/raw00.docx
+2025-09-12 00:03:38,745 INFO: Nombre de Sample ID trouvés : 1
+2025-09-12 00:03:38,745 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
+2025-09-12 00:03:38,746 INFO:   - Configurations : 4
+2025-09-12 00:03:38,746 INFO:   - Paramètres de test par configuration : 4
+2025-09-12 00:03:38,746 INFO:     Configuration ER_In front of harness RBW 9kHz : 0 mesures
+2025-09-12 00:03:38,746 INFO:     - Paramètres de test : ['Sample ID', 'Configuration']
+2025-09-12 00:03:38,746 INFO:     - Verdict global : OK
+2025-09-12 00:03:38,747 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 0 mesures
+2025-09-12 00:03:38,747 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project']
+2025-09-12 00:03:38,747 INFO:     - Verdict global : OK
+2025-09-12 00:03:38,747 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-12 00:03:38,747 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project']
+2025-09-12 00:03:38,748 INFO:     - Verdict global : OK
+2025-09-12 00:03:38,748 INFO:     Configuration ER_In front of harness RBW 120kHz With PA : 0 mesures
+2025-09-12 00:03:38,748 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project']
+2025-09-12 00:03:38,748 INFO:     - Verdict global : OK
+2025-09-12 00:03:39,600 INFO: Exports générés : out/Processed_RAW00.docx, out/Processed_RAW00.csv, out/Processed_RAW00.xlsx
+2025-09-12 00:03:39,600 INFO: === Fin traitement ===
