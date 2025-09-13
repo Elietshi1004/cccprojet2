@@ -105,14 +105,18 @@ def export_word(test_params, data, summary, global_verdict,
                     else:
                         cells[1].text = str(freq)
                     
-                    # SR (pas spécifié dans les données, mettre par défaut)
-                    cells[2].text = "-"
+                    # SR
+                    cells[2].text = str(row.get("S R", "-"))
                     
                     # Polarization
                     cells[3].text = str(row.get("Polarization", "Vertical"))
                     
-                    # Correction (dB) - pas dans les données, mettre par défaut
-                    cells[4].text = "0.00"
+                    # Correction (dB)
+                    correction = row.get("Correction (dB)", "-")
+                    if isinstance(correction, (int, float)):
+                        cells[4].text = f"{correction:.2f}"
+                    else:
+                        cells[4].text = str(correction)
                     
                     # Mesure (dBµV/m)
                     cells[5].text = str(row.get("Mesure (dBµV/m)", "-"))
@@ -190,8 +194,8 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
 
     # 🔸 Pour chaque Sample ID
     for sample_id, sample_data in all_samples_data.items():
-        test_params = sample_data['test_params']
         configurations = sample_data['configurations']
+        config_test_params = sample_data['config_test_params']
         sample_processed_data = all_processed_data.get(sample_id, {})
         sample_summaries = all_summaries.get(sample_id, {})
         
@@ -202,12 +206,23 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
         for config in configurations:
             config_name = config['config_name']
             processed = sample_processed_data.get(config_name, [])
+            test_params = config_test_params.get(config_name, {})
             summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
             
             print(f"Configuration {config_name}: {len(processed)} mesures")
+            print(f"  - Paramètres de test : {list(test_params.keys())}")
             
             # Titre de la configuration
             doc.add_heading(f"Configuration {config_name}", level=2)
+            
+            # Afficher les paramètres de test de cette configuration
+            if test_params and len(test_params) > 2:  # Plus que juste Sample ID et Configuration
+                doc.add_paragraph("Paramètres de test :")
+                for key, value in test_params.items():
+                    if key not in ["Sample ID", "Configuration"]:
+                        doc.add_paragraph(f"  • {key}: {value}")
+            else:
+                doc.add_paragraph("Paramètres de test : Aucun paramètre trouvé pour cette configuration")
             
             # Créer le tableau avec les colonnes attendues
             table = doc.add_table(rows=1, cols=9)
@@ -245,14 +260,18 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                     else:
                         cells[1].text = str(freq)
                     
-                    # SR (pas spécifié dans les données, mettre par défaut)
-                    cells[2].text = "-"
+                    # SR
+                    cells[2].text = str(row.get("S R", "-"))
                     
                     # Polarization
                     cells[3].text = str(row.get("Polarization", "Vertical"))
                     
-                    # Correction (dB) - pas dans les données, mettre par défaut
-                    cells[4].text = "0.00"
+                    # Correction (dB)
+                    correction = row.get("Correction (dB)", "-")
+                    if isinstance(correction, (int, float)):
+                        cells[4].text = f"{correction:.2f}"
+                    else:
+                        cells[4].text = str(correction)
                     
                     # Mesure (dBµV/m)
                     cells[5].text = str(row.get("Mesure (dBµV/m)", "-"))

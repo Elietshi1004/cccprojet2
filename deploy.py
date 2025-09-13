@@ -142,36 +142,6 @@ def generate_deployment_report(archive_name, zip_filename):
 └── config/                      # Configuration
     └── questions.txt            # Spécifications du projet
 ```
-
-## Fonctionnalités implémentées
-
-✅ **Extraction des données** (30%)
-- Détection automatique des sections CEM/EMI
-- Extraction complète des paramètres de test
-- Normalisation des unités et formats
-
-✅ **Application de la logique métier** (25%)
-- Calcul automatique des marges
-- Génération des verdicts PASS/FAIL
-- Formatage selon les spécifications
-
-✅ **Qualité du rendu** (20%)
-- Documents Word professionnels
-- Structure hiérarchique claire
-- Mise en forme avec couleurs
-
-✅ **Robustesse** (15%)
-- Gestion des erreurs
-- Logs détaillés
-- Validation des données
-
-✅ **Qualité du code et documentation** (10%)
-- Code modulaire et commenté
-- README complet
-- Structure claire
-
-## Score estimé: 92%
-
 ## Instructions d'utilisation
 
 1. Extraire l'archive

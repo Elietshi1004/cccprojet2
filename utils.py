@@ -49,6 +49,8 @@ def normalize_unit(unit: str) -> str:
     - "Âµ" au lieu de "µ" (micro)
     - "dBμV" au lieu de "dBµV" (incohérence de caractères)
     - "Lim.Avg" au lieu de "Limit Avg" (normalisation)
+    - "Lim.Peak" au lieu de "Limit Peak" (normalisation)
+    - "Lim.Q-Peak" au lieu de "Limit Q-Peak" (normalisation)
     - "CISPR.AVG" au lieu de "CISPR Avg" (normalisation)
     
     Args:
@@ -61,7 +63,12 @@ def normalize_unit(unit: str) -> str:
         unit.replace("Âµ", "µ")
             .replace("dBμV", "dBµV")
             .replace("Lim.Avg", "Limit Avg")
+            .replace("Lim.Peak", "Limit Peak")
+            .replace("Lim.Q-Peak", "Limit Q-Peak")
             .replace("CISPR.AVG", "CISPR Avg")
+            .replace("Peak-Lim.Peak", "Peak-Limit Peak")
+            .replace("Q-Peak-Lim.Q-Peak", "Q-Peak-Limit Q-Peak")
+            .replace("CISPR.AVG-Lim.Avg", "CISPR.AVG-Limit Avg")
     )
 
 
@@ -109,16 +116,16 @@ def init_logger(out_dir="out/logs"):
     return logging.getLogger()
 
 HEADER_MAP = {
-    "cispr avg": "Mesure (dBµV/m)",
-    "limit avg": "Limite (dBµV/m)",
+    "cispr avg": "CISPR.AVG (dBµV/m)",
+    "limit avg": "Lim.Avg (dBµV/m)",
     "frequency": "Frequency (MHz)",
     "detector": "Detector type",
     "comment": "Comment",
     "applied limit": "Applied limit",
     "margin": "Margin (dB)",
-    "peak": "Peak",
-    "q-peak": "Q-Peak",
-    "cispr": "CISPR_Av",
+    "peak": "Peak (dBµV/m)",
+    "q-peak": "Q-Peak (dBµV/m)",
+    "cispr": "CISPR.AVG (dBµV/m)",
     "antenna position": "Antenna Position",
     "polarization": "Polarization"
 }

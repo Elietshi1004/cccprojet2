@@ -91,6 +91,33 @@ def process_data(measurements):
             conformity = "-"
 
         new_row["Conformity"] = conformity
+        
+        # ========================================================================
+        # PRÉSERVER LES COLONNES IMPORTANTES DU PARSER
+        # ========================================================================
+        
+        # S'assurer que les colonnes importantes sont préservées
+        if "SR" not in new_row:
+            new_row["S R"] = m.get("S R", "-")
+        if "Correction (dB)" not in new_row:
+            new_row["Correction (dB)"] = m.get("Correction (dB)", "-")
+        if "Polarization" not in new_row:
+            new_row["Polarization"] = m.get("Polarization", "-")
+        if "Frequency (MHz)" not in new_row:
+            new_row["Frequency (MHz)"] = m.get("Frequency (MHz)", "-")
+        if "Mesure (dBµV/m)" not in new_row:
+            new_row["Mesure (dBµV/m)"] = m.get("Mesure (dBµV/m)", "-")
+        if "Limite (dBµV/m)" not in new_row:
+            new_row["Limite (dBµV/m)"] = m.get("Limite (dBµV/m)", "-")
+        if "Detector type" not in new_row:
+            new_row["Detector type"] = m.get("Detector type", "-")
+        if "Section" not in new_row:
+            new_row["Section"] = m.get("Section", "-")
+        if "Sample ID" not in new_row:
+            new_row["Sample ID"] = m.get("Sample ID", "-")
+        if "Comment" not in new_row:
+            new_row["Comment"] = m.get("Comment", "-")
+        
         processed.append(new_row)
 
     return processed

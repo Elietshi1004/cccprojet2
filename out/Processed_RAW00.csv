@@ -1,0 +1,9 @@
+Sample ID,Comment,Section,Frequency (MHz),S R,Mesure (dBµV/m),Detector type,Polarization,Correction (dB),Margin (dB),Overtaking (dB),Conformity,Limite (dBµV/m),Configuration
+CRE2-2025-TP002-02,-,Peak,1.25875,1.0,-30.75,Peak,Vertical,9.92,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,Peak,27.26875,2.0,-35.85,Peak,Vertical,10.29,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,Peak,1.2565,1.0,-19.61,Peak,Vertical,9.92,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,Peak,27.25975,2.0,-28.95,Peak,Vertical,10.29,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,Peak,1.25875,1.0,-17.75,Peak,Vertical,9.92,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,Peak,27.26875,2.0,-22.85,Peak,Vertical,10.29,N/A,-,-,-,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,CISPR.AVG,1.25425,1.0,-25.65,CISPR.AVG,Vertical,9.92,69.65,-,OK,44.0,ER_In front of harness RBW 9kHz
+CRE2-2025-TP002-02,-,CISPR.AVG,27.25975,2.0,-23.43,CISPR.AVG,Vertical,10.29,51.43,-,OK,28.0,ER_In front of harness RBW 9kHz

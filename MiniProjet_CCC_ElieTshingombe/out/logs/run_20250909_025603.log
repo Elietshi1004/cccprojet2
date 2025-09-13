@@ -1,0 +1,34 @@
+2025-09-09 02:56:03,106 INFO: === Début traitement du fichier RAW ===
+2025-09-09 02:56:03,107 INFO: Fichier : raw/raw01.docx
+2025-09-09 02:56:08,297 INFO: Nombre de Sample ID trouvés : 1
+2025-09-09 02:56:08,297 INFO: Traitement du Sample ID : CRE2-2025-TP002-02
+2025-09-09 02:56:08,297 INFO:   - Paramètres : 3
+2025-09-09 02:56:08,297 INFO:   - Configurations : 13
+2025-09-09 02:56:08,297 INFO:     Configuration ER_In front of harness RBW 9kHz : 8 mesures
+2025-09-09 02:56:08,297 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,299 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 0 mesures
+2025-09-09 02:56:08,299 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,299 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 02:56:08,299 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of harness RBW 120kHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of harness RBW 1MHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 120kHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:08,300 INFO:     Configuration ER_In front of DUT RBW 1MHz With PA : 0 mesures
+2025-09-09 02:56:08,300 INFO:     - Verdict global : OK
+2025-09-09 02:56:09,254 INFO: Exports générés : out/Processed_RAW01.docx, out/Processed_RAW01.csv, out/Processed_RAW01.xlsx
+2025-09-09 02:56:09,254 INFO: === Fin traitement ===

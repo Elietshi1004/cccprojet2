@@ -23,7 +23,7 @@ from writer import export_word, export_csv, export_xlsx, export_word_multiple_sa
 from utils import init_logger
 
 
-def main(input_file="raw/raw01.docx", word_out=None, csv_out=None, xlsx_out=None):
+def main(input_file="raw/raw00.docx", word_out=None, csv_out=None, xlsx_out=None):
     """
     Fonction principale de traitement des données RAW CEM/EMI
     
@@ -36,16 +36,16 @@ def main(input_file="raw/raw01.docx", word_out=None, csv_out=None, xlsx_out=None
     Returns:
         None
     """
-    # Configuration du candidat (à modifier avec le vrai nom)
-    candidate_name = "ElieTshingombe"  # 🔥 modifie avec ton vrai nom
+    
+    candidate_name = "ElieTshingombe"  
     
     # Définition des chemins de sortie par défaut si non spécifiés
     if word_out is None:
-        word_out = "out/Processed_RAW01.docx"
+        word_out = "out/Processed_RAW00.docx"
     if csv_out is None:
-        csv_out = "out/Processed_RAW01.csv"
+        csv_out = "out/Processed_RAW00.csv"
     if xlsx_out is None:
-        xlsx_out = "out/Processed_RAW01.xlsx"
+        xlsx_out = "out/Processed_RAW00.xlsx"
 
     # ========================================================================
     # ÉTAPE 1: INITIALISATION
@@ -81,12 +81,12 @@ def main(input_file="raw/raw01.docx", word_out=None, csv_out=None, xlsx_out=None
         logger.info(f"Traitement du Sample ID : {sample_id}")
 
         # Extraire les composants des données du Sample ID
-        test_params = sample_data['test_params']           # Paramètres de test (RBW, antenne, etc.)
         config_measurements = sample_data['config_measurements']  # Mesures par configuration
-        configurations = sample_data['configurations']     # Liste des configurations disponibles
+        config_test_params = sample_data['config_test_params']     # Paramètres de test par configuration
+        configurations = sample_data['configurations']             # Liste des configurations disponibles
 
-        logger.info(f"  - Paramètres : {len(test_params)}")
         logger.info(f"  - Configurations : {len(configurations)}")
+        logger.info(f"  - Paramètres de test par configuration : {len(config_test_params)}")
 
         # Dictionnaires pour stocker les données traitées de ce Sample ID
         sample_processed_data = {}  # Données traitées par configuration
@@ -96,8 +96,10 @@ def main(input_file="raw/raw01.docx", word_out=None, csv_out=None, xlsx_out=None
         for config in configurations:
             config_name = config['config_name']
             measurements = config_measurements.get(config_name, [])
+            test_params = config_test_params.get(config_name, {})
             
             logger.info(f"    Configuration {config_name} : {len(measurements)} mesures")
+            logger.info(f"    - Paramètres de test : {list(test_params.keys())}")
 
             # ========================================================================
             # APPLICATION DES RÈGLES MÉTIER
