@@ -202,18 +202,26 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
         # Titre du Sample
         doc.add_heading(f"Sample n°{sample_id}", level=1)
         
-        # Pour chaque configuration de ce Sample ID
-        for config in configurations:
+        # Trier les configurations par nom pour regrouper les configurations similaires
+        sorted_configurations = sorted(configurations, key=lambda x: x['config_name'])
+        print(f"🔍 CONFIGURATIONS TRIÉES pour {sample_id}:")
+        for i, config in enumerate(sorted_configurations):
+            print(f"  {i+1}. {config['config_name']}")
+        
+        # Pour chaque configuration de ce Sample ID (maintenant triées)
+        for config in sorted_configurations:
             config_name = config['config_name']
             processed = sample_processed_data.get(config_name, [])
             test_params = config_test_params.get(config_name, {})
             summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
             
-            print(f"Configuration {config_name}: {len(processed)} mesures")
-            print(f"  - Paramètres de test : {list(test_params.keys())}")
+            print(f"📊 TRAITEMENT Configuration: {config_name}")
+            print(f"  - Mesures disponibles: {len(processed)}")
+            print(f"  - Paramètres de test: {list(test_params.keys())}")
             
             # Titre de la configuration
             doc.add_heading(f"Configuration {config_name}", level=2)
+            print(f"  ✅ Titre ajouté au document Word")
             
             # Afficher les paramètres de test de cette configuration
             if test_params and len(test_params) > 2:  # Plus que juste Sample ID et Configuration
@@ -227,6 +235,7 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
             # Créer le tableau avec les colonnes selon l'image
             table = doc.add_table(rows=1, cols=9)
             table.style = 'Table Grid'
+            print(f"  📋 Tableau créé avec 9 colonnes")
             
             # En-têtes selon l'image fournie
             headers = [
@@ -241,62 +250,94 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                 run = hdr[i].paragraphs[0].runs[0]
                 run.bold = True
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Texte noir
+            print(f"  ✅ En-têtes ajoutés au tableau")
             
-            # Ajouter les données selon le nouveau format
-            for row in processed:
-                if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
-                    cells = table.add_row().cells
-                    
-                    # Antenna Position (Axis equipment)
-                    cells[0].text = str(row.get("Antenna Position", "1 (X)"))
-                    
-                    # Polarization of antenna
-                    cells[1].text = str(row.get("Polarization", "Vertical"))
-                    
-                    # Margin (dB) - formatage selon nouvelles règles
-                    margin = row.get("Margin (dB)", "-")
-                    if isinstance(margin, (int, float)):
-                        cells[2].text = str(int(margin))  # Affichage en entier selon nouvelles règles
-                    else:
-                        cells[2].text = str(margin)
-                    
-                    # Overtaking (dB) - toujours "-" pour l'instant
-                    cells[3].text = str(row.get("Overtaking (dB)", "-"))
-                    
-                    # Conformity avec couleur
-                    verdict_txt = str(row.get("Conformity", "-"))
-                    run = cells[4].paragraphs[0].add_run(verdict_txt)
-                    if verdict_txt.upper() == "OK":
-                        run.font.color.rgb = RGBColor(0, 128, 0)  # vert
-                    elif verdict_txt.upper() == "NOK":
-                        run.font.color.rgb = RGBColor(200, 0, 0)  # rouge
-                        run.bold = True
-                    
-                    # Frequency (MHz) - formatage selon spécifications
-                    freq = row.get("Frequency (MHz)", "")
-                    if isinstance(freq, (int, float)):
-                        if freq < 10:
-                            cells[5].text = f"{freq:.5f}"
+            # Ajouter les données avec fusion des cellules selon l'image
+            if processed:
+                print(f"  📝 Ajout de {len(processed)} lignes de données au tableau")
+                # Créer les lignes de données
+                for i, row in enumerate(processed):
+                    if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
+                        cells = table.add_row().cells
+                        
+                        # Antenna Position (Axis equipment) - fusionné sur toutes les lignes
+                        if i == 0:
+                            # Première ligne : afficher le texte
+                            cells[0].text = str(row.get("Antenna Position", "1 (X)"))
                         else:
-                            cells[5].text = f"{freq:.3f}"
+                            # Lignes suivantes : laisser vide (fusion implicite)
+                            cells[0].text = ""
+                        
+                        # Polarization of antenna - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[1].text = str(row.get("Polarization", "Vertical"))
+                        else:
+                            cells[1].text = ""
+                        
+                        # Margin (dB) - formatage selon nouvelles règles (lignes distinctes)
+                        margin = row.get("Margin (dB)", "-")
+                        if isinstance(margin, (int, float)):
+                            cells[2].text = str(int(margin))  # Affichage en entier selon nouvelles règles
+                        else:
+                            cells[2].text = str(margin)
+                        
+                        # Overtaking (dB) - toujours "-" pour l'instant
+                        cells[3].text = str(row.get("Overtaking (dB)", "-"))
+                        
+                        # Conformity avec couleur - fusionné sur toutes les lignes
+                        if i == 0:
+                            verdict_txt = str(row.get("Conformity", "-"))
+                            run = cells[4].paragraphs[0].add_run(verdict_txt)
+                            if verdict_txt.upper() == "OK":
+                                run.font.color.rgb = RGBColor(0, 128, 0)  # vert
+                            elif verdict_txt.upper() == "NOK":
+                                run.font.color.rgb = RGBColor(200, 0, 0)  # rouge
+                                run.bold = True
+                        else:
+                            cells[4].text = ""
+                        
+                        # Frequency (MHz) - formatage selon spécifications (lignes distinctes)
+                        freq = row.get("Frequency (MHz)", "")
+                        if isinstance(freq, (int, float)):
+                            if freq < 10:
+                                cells[5].text = f"{freq:.5f}"
+                            else:
+                                cells[5].text = f"{freq:.3f}"
+                        else:
+                            cells[5].text = str(freq)
+                        
+                        # Applied limit - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[6].text = str(row.get("Applied limit", "RNDS-C-00517 V4.0"))
+                        else:
+                            cells[6].text = ""
+                        
+                        # Detector type - formatage court (lignes distinctes)
+                        detector = str(row.get("Detector type", "-"))
+                        if detector == "Peak":
+                            cells[7].text = "Pk"
+                        elif detector == "Q-Peak":
+                            cells[7].text = "QPk"
+                        elif detector == "CISPR.AVG":
+                            cells[7].text = "CISPR.AVG"
+                        else:
+                            cells[7].text = detector
+                        
+                        # Comment - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[8].text = str(row.get("Comment", "-"))
+                        else:
+                            cells[8].text = ""
+                        
                     else:
-                        cells[5].text = str(freq)
-                    
-                    # Applied limit - utiliser la limite extraite
-                    cells[6].text = str(row.get("Applied limit", "RNDS-C-00517 V4.0"))
-                    
-                    # Detector type
-                    cells[7].text = str(row.get("Detector type", "-"))
-                    
-                    # Comment - toujours vide selon l'image
-                    cells[8].text = str(row.get("Comment", ""))
-                    
-                else:
-                    print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
+                        print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
             
             # Si pas de données pour cette configuration, afficher un message
             if len(processed) == 0:
                 doc.add_paragraph("Aucune donnée disponible pour cette configuration.")
+                print(f"  ⚠️ Aucune donnée pour cette configuration")
+            else:
+                print(f"  ✅ Configuration {config_name} terminée avec {len(processed)} mesures")
 
     # 🔸 Pied de page signature
     h = file_hash(raw_path)
