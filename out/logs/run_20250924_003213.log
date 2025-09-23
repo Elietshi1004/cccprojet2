@@ -1,0 +1,41 @@
+2025-09-24 00:32:13,035 INFO: === Début traitement du fichier RAW ===
+2025-09-24 00:32:13,035 INFO: Fichier : raw/raw00.docx
+2025-09-24 00:32:31,269 INFO: Nombre de Sample ID trouvés : 1
+2025-09-24 00:32:31,269 INFO: Traitement du Sample ID : CRE2-2025-TP002-01
+2025-09-24 00:32:31,269 INFO:   - Configurations : 11
+2025-09-24 00:32:31,269 INFO:   - Paramètres de test par configuration : 7
+2025-09-24 00:32:31,269 INFO:     Configuration ER_In front of harness RBW 9kHz : 6 mesures
+2025-09-24 00:32:31,269 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,279 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,279 INFO:     Configuration ER_In front of harness RBW 9kHz_GNSS : 2 mesures
+2025-09-24 00:32:31,279 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,282 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,282 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 2 mesures
+2025-09-24 00:32:31,282 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,285 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,286 INFO:     Configuration ER_In front of harness RBW 120kHz : 12 mesures
+2025-09-24 00:32:31,286 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,300 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,300 INFO:     Configuration ER_In front of harness RBW 1MHz : 8 mesures
+2025-09-24 00:32:31,300 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,310 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,310 INFO:     Configuration ER_In front of DUT RBW 120kHz : 12 mesures
+2025-09-24 00:32:31,310 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,324 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,324 INFO:     Configuration ER_In front of DUT RBW 1MHz : 12 mesures
+2025-09-24 00:32:31,324 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,338 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,338 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 2 mesures
+2025-09-24 00:32:31,338 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,342 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,342 INFO:     Configuration ER_In front of DUT RBW 120kHz : 12 mesures
+2025-09-24 00:32:31,342 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,355 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,355 INFO:     Configuration ER_In front of DUT RBW 9kHz_GNSS : 2 mesures
+2025-09-24 00:32:31,355 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,358 INFO:     - Verdict global : OK
+2025-09-24 00:32:31,359 INFO:     Configuration ER_In front of DUT RBW 120kHz : 12 mesures
+2025-09-24 00:32:31,359 INFO:     - Paramètres de test : ['Sample ID', 'Configuration', 'Project', 'Operator', 'Test Configuration', 'Axis', 'Operating mode']
+2025-09-24 00:32:31,372 INFO:     - Verdict global : OK
+2025-09-24 00:32:32,171 INFO: Exports générés : out/Processed_RAW00.docx, out/Processed_RAW00.csv, out/Processed_RAW00.xlsx
+2025-09-24 00:32:32,171 INFO: === Fin traitement ===

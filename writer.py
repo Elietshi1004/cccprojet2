@@ -202,33 +202,39 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
         # Titre du Sample
         doc.add_heading(f"Sample n°{sample_id}", level=1)
         
-        # Trier les configurations par nom pour regrouper les configurations similaires
-        sorted_configurations = sorted(configurations, key=lambda x: x['config_name'])
-        print(f"🔍 CONFIGURATIONS TRIÉES pour {sample_id}:")
+        # Trier les configurations par valeur numérique (9, 120, 1)
+        sorted_configurations = sort_configurations_by_rbw_value(configurations)
+        print(f"🔍 CONFIGURATIONS TRIÉES par valeur RBW pour {sample_id}:")
         for i, config in enumerate(sorted_configurations):
             print(f"  {i+1}. {config['config_name']}")
         
-        # Pour chaque configuration de ce Sample ID (maintenant triées)
-        for config in sorted_configurations:
-            config_name = config['config_name']
-            processed = sample_processed_data.get(config_name, [])
-            test_params = config_test_params.get(config_name, {})
-            summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
+        # Regrouper les configurations par config_name (fusion des tableaux)
+        grouped_by_config_name = group_configurations_by_name(sorted_configurations, sample_processed_data, config_test_params, sample_summaries)
+        
+        print(f"🔍 CONFIGURATIONS REGROUPÉES pour {sample_id}:")
+        for config_name, group_data in grouped_by_config_name.items():
+            print(f"  📊 {config_name}: {len(group_data['all_processed'])} mesures total")
+        
+        # Pour chaque configuration regroupée
+        for config_name, group_data in grouped_by_config_name.items():
+            all_processed = group_data['all_processed']
+            test_params = group_data['test_params']
             
             print(f"📊 TRAITEMENT Configuration: {config_name}")
-            print(f"  - Mesures disponibles: {len(processed)}")
+            print(f"  - Mesures disponibles: {len(all_processed)}")
             print(f"  - Paramètres de test: {list(test_params.keys())}")
             
-            # Titre de la configuration
+            # Titre de la configuration (une seule fois)
             doc.add_heading(f"Configuration {config_name}", level=2)
             print(f"  ✅ Titre ajouté au document Word")
             
-            # Afficher les paramètres de test de cette configuration
+            # Afficher les paramètres de test (une seule fois)
             if test_params and len(test_params) > 2:  # Plus que juste Sample ID et Configuration
-                doc.add_paragraph("Paramètres de test :")
-                for key, value in test_params.items():
-                    if key not in ["Sample ID", "Configuration"]:
-                        doc.add_paragraph(f"  • {key}: {value}")
+                # doc.add_paragraph("Paramètres de test :")
+                # for key, value in test_params.items():
+                #     if key not in ["Sample ID", "Configuration"]:
+                #         doc.add_paragraph(f"  • {key}: {value}")
+                print(f"  📋 Paramètres de test: {test_params}")
             else:
                 doc.add_paragraph("Paramètres de test : Aucun paramètre trouvé pour cette configuration")
             
@@ -252,11 +258,11 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Texte noir
             print(f"  ✅ En-têtes ajoutés au tableau")
             
-            # Ajouter les données avec fusion des cellules selon l'image
-            if processed:
-                print(f"  📝 Ajout de {len(processed)} lignes de données au tableau")
+            # Ajouter TOUTES les données fusionnées avec fusion des cellules selon l'image
+            if all_processed:
+                print(f"  📝 Ajout de {len(all_processed)} lignes de données au tableau")
                 # Créer les lignes de données
-                for i, row in enumerate(processed):
+                for i, row in enumerate(all_processed):
                     if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
                         cells = table.add_row().cells
                         
@@ -333,11 +339,11 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                         print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
             
             # Si pas de données pour cette configuration, afficher un message
-            if len(processed) == 0:
+            if len(all_processed) == 0:
                 doc.add_paragraph("Aucune donnée disponible pour cette configuration.")
                 print(f"  ⚠️ Aucune donnée pour cette configuration")
             else:
-                print(f"  ✅ Configuration {config_name} terminée avec {len(processed)} mesures")
+                print(f"  ✅ Configuration {config_name} terminée avec {len(all_processed)} mesures")
 
     # 🔸 Pied de page signature
     h = file_hash(raw_path)
@@ -379,6 +385,91 @@ def group_by_sample_and_config(data, test_params):
         grouped[sample_id][config_name].extend(data)
     else:
         print(f"Erreur: data n'est pas une liste: {type(data)}")
+    
+    return grouped
+
+
+def sort_configurations_by_rbw_value(configurations):
+    """
+    Trie les configurations par valeur numérique RBW (9, 120, 1, etc.)
+    Exemples:
+    - "ER_In front of harness RBW 9kHz" → valeur 9
+    - "ER_In front of DUT RBW 120kHz" → valeur 120
+    - "ER_In front of harness RBW 1MHz" → valeur 1
+    """
+    import re
+    
+    def extract_rbw_value(config_name):
+        """
+        Extrait la valeur numérique RBW depuis le nom de configuration
+        """
+        # Chercher patterns comme "RBW 9kHz", "RBW 120kHz", "RBW 1MHz"
+        match = re.search(r'RBW\s+(\d+)(?:kHz|MHz)', config_name, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+        
+        # Fallback: chercher n'importe quel nombre après RBW
+        match = re.search(r'RBW\s+(\d+)', config_name, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+        
+        # Si pas trouvé, retourner 999 pour mettre à la fin
+        return 999
+    
+    # Trier par valeur RBW
+    sorted_configs = sorted(configurations, key=lambda x: extract_rbw_value(x['config_name']))
+    
+    print(f"🔢 VALEURS RBW extraites:")
+    for config in sorted_configs:
+        value = extract_rbw_value(config['config_name'])
+        print(f"  📊 {config['config_name']} → valeur: {value}")
+    
+    return sorted_configs
+
+
+def group_configurations_by_name(configurations, sample_processed_data, config_test_params, sample_summaries):
+    """
+    Regroupe les configurations par config_name exact et fusionne toutes leurs données
+    Exemple: 
+    - Si on a 3 configurations "ER_In front of harness RBW 9kHz GNSS", on les regroupe en 1 seul tableau
+    - Si on a 2 configurations "ER_In front of harness RBW 120kHz", on les regroupe en 1 seul tableau
+    """
+    grouped = {}
+    
+    print(f"🔍 REGROUPEMENT par config_name:")
+    
+    for config in configurations:
+        config_name = config['config_name']
+        
+        print(f"  📋 Traitement config: {config_name}")
+        
+        # Créer le groupe s'il n'existe pas
+        if config_name not in grouped:
+            grouped[config_name] = {
+                'all_processed': [],
+                'test_params': {},
+                'summaries': []
+            }
+            print(f"    ✅ Nouveau groupe créé pour: {config_name}")
+        
+        # Ajouter les données traitées
+        processed = sample_processed_data.get(config_name, [])
+        grouped[config_name]['all_processed'].extend(processed)
+        print(f"    📊 Ajout de {len(processed)} mesures au groupe")
+        
+        # Ajouter les paramètres de test (prendre ceux de la première config)
+        if not grouped[config_name]['test_params']:
+            test_params = config_test_params.get(config_name, {})
+            grouped[config_name]['test_params'] = test_params
+            print(f"    📋 Paramètres de test ajoutés")
+        
+        # Ajouter les synthèses
+        summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
+        grouped[config_name]['summaries'].append((summary, global_verdict))
+    
+    print(f"🎯 RÉSULTAT REGROUPEMENT:")
+    for config_name, group_data in grouped.items():
+        print(f"  📊 {config_name}: {len(group_data['all_processed'])} mesures total")
     
     return grouped
 

@@ -202,37 +202,52 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
         # Titre du Sample
         doc.add_heading(f"Sample n°{sample_id}", level=1)
         
-        # Pour chaque configuration de ce Sample ID
-        for config in configurations:
-            config_name = config['config_name']
-            processed = sample_processed_data.get(config_name, [])
-            test_params = config_test_params.get(config_name, {})
-            summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
+        # Trier les configurations par valeur numérique (9, 120, 1)
+        sorted_configurations = sort_configurations_by_rbw_value(configurations)
+        print(f"🔍 CONFIGURATIONS TRIÉES par valeur RBW pour {sample_id}:")
+        for i, config in enumerate(sorted_configurations):
+            print(f"  {i+1}. {config['config_name']}")
+        
+        # Regrouper les configurations par config_name (fusion des tableaux)
+        grouped_by_config_name = group_configurations_by_name(sorted_configurations, sample_processed_data, config_test_params, sample_summaries)
+        
+        print(f"🔍 CONFIGURATIONS REGROUPÉES pour {sample_id}:")
+        for config_name, group_data in grouped_by_config_name.items():
+            print(f"  📊 {config_name}: {len(group_data['all_processed'])} mesures total")
+        
+        # Pour chaque configuration regroupée
+        for config_name, group_data in grouped_by_config_name.items():
+            all_processed = group_data['all_processed']
+            test_params = group_data['test_params']
             
-            print(f"Configuration {config_name}: {len(processed)} mesures")
-            print(f"  - Paramètres de test : {list(test_params.keys())}")
+            print(f"📊 TRAITEMENT Configuration: {config_name}")
+            print(f"  - Mesures disponibles: {len(all_processed)}")
+            print(f"  - Paramètres de test: {list(test_params.keys())}")
             
-            # Titre de la configuration
+            # Titre de la configuration (une seule fois)
             doc.add_heading(f"Configuration {config_name}", level=2)
+            print(f"  ✅ Titre ajouté au document Word")
             
-            # Afficher les paramètres de test de cette configuration
+            # Afficher les paramètres de test (une seule fois)
             if test_params and len(test_params) > 2:  # Plus que juste Sample ID et Configuration
-                doc.add_paragraph("Paramètres de test :")
-                for key, value in test_params.items():
-                    if key not in ["Sample ID", "Configuration"]:
-                        doc.add_paragraph(f"  • {key}: {value}")
+                # doc.add_paragraph("Paramètres de test :")
+                # for key, value in test_params.items():
+                #     if key not in ["Sample ID", "Configuration"]:
+                #         doc.add_paragraph(f"  • {key}: {value}")
+                print(f"  📋 Paramètres de test: {test_params}")
             else:
                 doc.add_paragraph("Paramètres de test : Aucun paramètre trouvé pour cette configuration")
             
-            # Créer le tableau avec les colonnes attendues
+            # Créer le tableau avec les colonnes selon l'image
             table = doc.add_table(rows=1, cols=9)
             table.style = 'Table Grid'
+            print(f"  📋 Tableau créé avec 9 colonnes")
             
-            # En-têtes selon les spécifications
+            # En-têtes selon l'image fournie
             headers = [
-                "Section", "Frequency (MHz)", "SR", "Polarization", 
-                "Correction (dB)", "Mesure (dBµV/m)", "Limite (dBµV/m)", 
-                "Marge (dB)", "Verdict"
+                "Antenna Position (Axis equipment)", "Polarization of antenna", 
+                "Margin (dB)", "Overtaking (dB)", "Conformity", "Frequency (MHz)", 
+                "Applied limit", "Detector type", "Comment"
             ]
             
             hdr = table.rows[0].cells
@@ -241,65 +256,94 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                 run = hdr[i].paragraphs[0].runs[0]
                 run.bold = True
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Texte noir
+            print(f"  ✅ En-têtes ajoutés au tableau")
             
-            # Ajouter les données
-            for row in processed:
-                if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
-                    cells = table.add_row().cells
-                    
-                    # Section (détecteur type)
-                    cells[0].text = str(row.get("Detector type", "-"))
-                    
-                    # Frequency (MHz) - formatage selon spécifications
-                    freq = row.get("Frequency (MHz)", "")
-                    if isinstance(freq, (int, float)):
-                        if freq < 10:
-                            cells[1].text = f"{freq:.5f}"
+            # Ajouter TOUTES les données fusionnées avec fusion des cellules selon l'image
+            if all_processed:
+                print(f"  📝 Ajout de {len(all_processed)} lignes de données au tableau")
+                # Créer les lignes de données
+                for i, row in enumerate(all_processed):
+                    if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
+                        cells = table.add_row().cells
+                        
+                        # Antenna Position (Axis equipment) - fusionné sur toutes les lignes
+                        if i == 0:
+                            # Première ligne : afficher le texte
+                            cells[0].text = str(row.get("Antenna Position", "1 (X)"))
                         else:
-                            cells[1].text = f"{freq:.3f}"
+                            # Lignes suivantes : laisser vide (fusion implicite)
+                            cells[0].text = ""
+                        
+                        # Polarization of antenna - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[1].text = str(row.get("Polarization", "Vertical"))
+                        else:
+                            cells[1].text = ""
+                        
+                        # Margin (dB) - formatage selon nouvelles règles (lignes distinctes)
+                        margin = row.get("Margin (dB)", "-")
+                        if isinstance(margin, (int, float)):
+                            cells[2].text = str(int(margin))  # Affichage en entier selon nouvelles règles
+                        else:
+                            cells[2].text = str(margin)
+                        
+                        # Overtaking (dB) - toujours "-" pour l'instant
+                        cells[3].text = str(row.get("Overtaking (dB)", "-"))
+                        
+                        # Conformity avec couleur - fusionné sur toutes les lignes
+                        if i == 0:
+                            verdict_txt = str(row.get("Conformity", "-"))
+                            run = cells[4].paragraphs[0].add_run(verdict_txt)
+                            if verdict_txt.upper() == "OK":
+                                run.font.color.rgb = RGBColor(0, 128, 0)  # vert
+                            elif verdict_txt.upper() == "NOK":
+                                run.font.color.rgb = RGBColor(200, 0, 0)  # rouge
+                                run.bold = True
+                        else:
+                            cells[4].text = ""
+                        
+                        # Frequency (MHz) - formatage selon spécifications (lignes distinctes)
+                        freq = row.get("Frequency (MHz)", "")
+                        if isinstance(freq, (int, float)):
+                            if freq < 10:
+                                cells[5].text = f"{freq:.5f}"
+                            else:
+                                cells[5].text = f"{freq:.3f}"
+                        else:
+                            cells[5].text = str(freq)
+                        
+                        # Applied limit - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[6].text = str(row.get("Applied limit", "RNDS-C-00517 V4.0"))
+                        else:
+                            cells[6].text = ""
+                        
+                        # Detector type - formatage court (lignes distinctes)
+                        detector = str(row.get("Detector type", "-"))
+                        if detector == "Peak":
+                            cells[7].text = "Pk"
+                        elif detector == "Q-Peak":
+                            cells[7].text = "QPk"
+                        elif detector == "CISPR.AVG":
+                            cells[7].text = "CISPR.AVG"
+                        else:
+                            cells[7].text = detector
+                        
+                        # Comment - fusionné sur toutes les lignes
+                        if i == 0:
+                            cells[8].text = str(row.get("Comment", "-"))
+                        else:
+                            cells[8].text = ""
+                        
                     else:
-                        cells[1].text = str(freq)
-                    
-                    # SR
-                    cells[2].text = str(row.get("S R", "-"))
-                    
-                    # Polarization
-                    cells[3].text = str(row.get("Polarization", "Vertical"))
-                    
-                    # Correction (dB)
-                    correction = row.get("Correction (dB)", "-")
-                    if isinstance(correction, (int, float)):
-                        cells[4].text = f"{correction:.2f}"
-                    else:
-                        cells[4].text = str(correction)
-                    
-                    # Mesure (dBµV/m)
-                    cells[5].text = str(row.get("Mesure (dBµV/m)", "-"))
-                    
-                    # Limite (dBµV/m)
-                    cells[6].text = str(row.get("Limite (dBµV/m)", "-"))
-                    
-                    # Marge (dB) - formatage 2 décimales
-                    margin = row.get("Margin (dB)", "-")
-                    if isinstance(margin, (int, float)):
-                        cells[7].text = f"{margin:.2f}"
-                    else:
-                        cells[7].text = str(margin)
-                    
-                    # Verdict avec couleur
-                    verdict_txt = str(row.get("Conformity", "-"))
-                    run = cells[8].paragraphs[0].add_run(verdict_txt)
-                    if verdict_txt.upper() == "OK":
-                        run.font.color.rgb = RGBColor(0, 128, 0)  # vert
-                    elif verdict_txt.upper() == "NOK":
-                        run.font.color.rgb = RGBColor(200, 0, 0)  # rouge
-                        run.bold = True
-                else:
-                    print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
+                        print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
             
             # Si pas de données pour cette configuration, afficher un message
-            if len(processed) == 0:
+            if len(all_processed) == 0:
                 doc.add_paragraph("Aucune donnée disponible pour cette configuration.")
+                print(f"  ⚠️ Aucune donnée pour cette configuration")
+            else:
+                print(f"  ✅ Configuration {config_name} terminée avec {len(all_processed)} mesures")
 
     # 🔸 Pied de page signature
     h = file_hash(raw_path)
@@ -341,6 +385,91 @@ def group_by_sample_and_config(data, test_params):
         grouped[sample_id][config_name].extend(data)
     else:
         print(f"Erreur: data n'est pas une liste: {type(data)}")
+    
+    return grouped
+
+
+def sort_configurations_by_rbw_value(configurations):
+    """
+    Trie les configurations par valeur numérique RBW (9, 120, 1, etc.)
+    Exemples:
+    - "ER_In front of harness RBW 9kHz" → valeur 9
+    - "ER_In front of DUT RBW 120kHz" → valeur 120
+    - "ER_In front of harness RBW 1MHz" → valeur 1
+    """
+    import re
+    
+    def extract_rbw_value(config_name):
+        """
+        Extrait la valeur numérique RBW depuis le nom de configuration
+        """
+        # Chercher patterns comme "RBW 9kHz", "RBW 120kHz", "RBW 1MHz"
+        match = re.search(r'RBW\s+(\d+)(?:kHz|MHz)', config_name, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+        
+        # Fallback: chercher n'importe quel nombre après RBW
+        match = re.search(r'RBW\s+(\d+)', config_name, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+        
+        # Si pas trouvé, retourner 999 pour mettre à la fin
+        return 999
+    
+    # Trier par valeur RBW
+    sorted_configs = sorted(configurations, key=lambda x: extract_rbw_value(x['config_name']))
+    
+    print(f"🔢 VALEURS RBW extraites:")
+    for config in sorted_configs:
+        value = extract_rbw_value(config['config_name'])
+        print(f"  📊 {config['config_name']} → valeur: {value}")
+    
+    return sorted_configs
+
+
+def group_configurations_by_name(configurations, sample_processed_data, config_test_params, sample_summaries):
+    """
+    Regroupe les configurations par config_name exact et fusionne toutes leurs données
+    Exemple: 
+    - Si on a 3 configurations "ER_In front of harness RBW 9kHz GNSS", on les regroupe en 1 seul tableau
+    - Si on a 2 configurations "ER_In front of harness RBW 120kHz", on les regroupe en 1 seul tableau
+    """
+    grouped = {}
+    
+    print(f"🔍 REGROUPEMENT par config_name:")
+    
+    for config in configurations:
+        config_name = config['config_name']
+        
+        print(f"  📋 Traitement config: {config_name}")
+        
+        # Créer le groupe s'il n'existe pas
+        if config_name not in grouped:
+            grouped[config_name] = {
+                'all_processed': [],
+                'test_params': {},
+                'summaries': []
+            }
+            print(f"    ✅ Nouveau groupe créé pour: {config_name}")
+        
+        # Ajouter les données traitées
+        processed = sample_processed_data.get(config_name, [])
+        grouped[config_name]['all_processed'].extend(processed)
+        print(f"    📊 Ajout de {len(processed)} mesures au groupe")
+        
+        # Ajouter les paramètres de test (prendre ceux de la première config)
+        if not grouped[config_name]['test_params']:
+            test_params = config_test_params.get(config_name, {})
+            grouped[config_name]['test_params'] = test_params
+            print(f"    📋 Paramètres de test ajoutés")
+        
+        # Ajouter les synthèses
+        summary, global_verdict = sample_summaries.get(config_name, ([], "NOK"))
+        grouped[config_name]['summaries'].append((summary, global_verdict))
+    
+    print(f"🎯 RÉSULTAT REGROUPEMENT:")
+    for config_name, group_data in grouped.items():
+        print(f"  📊 {config_name}: {len(group_data['all_processed'])} mesures total")
     
     return grouped
 

@@ -56,7 +56,8 @@ def process_all_raw_files():
     raw_files = [
         "raw01.docx",
         "raw02.docx", 
-        "raw03.docx"
+        "raw03.docx",
+        "raw04.docx"
     ]
     
     results = []

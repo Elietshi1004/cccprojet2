@@ -294,6 +294,11 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Tru
                 test_params["Operator"] = value_norm
             elif "test configuration" in key_norm or "test cfg" in key_norm:
                 test_params["Test Configuration"] = value_norm
+                # Extraire l'axe (X, Y, Z) depuis Test Configuration
+                axis = extract_axis_from_test_config(value_norm)
+                if axis:
+                    test_params["Axis"] = axis
+                    print(f"    -> Axe extrait: {axis}")
             elif "operating mode" in key_norm or key_norm.startswith("mode"):
                 # gérer "Mode 3, Conclusion: comply" dans la même valeur
                 low = value_norm.lower()
@@ -357,6 +362,23 @@ def extract_test_params_for_configuration(doc, sample_id, config_name, debug=Tru
     return test_params
 
 
+def extract_axis_from_test_config(test_config_text):
+    """
+    Extrait l'axe (X, Y, Z) depuis le texte Test Configuration
+    Exemple: "Antenna position:in front of harness, DUT Orientation:axis X, ..." → "X"
+    """
+    if not test_config_text:
+        return None
+    
+    # Chercher "axis X", "axis Y", "axis Z" (insensible à la casse)
+    match = re.search(r'axis\s+([XYZ])', test_config_text, re.IGNORECASE)
+    if match:
+        return match.group(1).upper()
+    
+    return None
+
+
+# Fonction supprimée - remplacée par extract_measurements_for_configuration
 
 
 def extract_measurements_for_configuration(doc, sample_id, config_name):
@@ -423,8 +445,11 @@ def extract_measurements_for_configuration(doc, sample_id, config_name):
         if is_measurement_table:
             print(f"  *** Tableau {check_idx} est un tableau de mesures ***")
             
+            # Extraire les paramètres de test pour cette configuration
+            test_params = extract_test_params_for_configuration(doc, sample_id, config_name, debug=False)
+            
             # Extraire les mesures de ce tableau
-            table_measurements = extract_measurements_from_table(check_table, sample_id)
+            table_measurements = extract_measurements_from_table(check_table, sample_id, config_name, test_params)
             if isinstance(table_measurements, list) and len(table_measurements) > 0:
                 # Éviter les doublons en vérifiant si la mesure existe déjà
                 for measure in table_measurements:
@@ -454,13 +479,14 @@ def extract_measurements_for_configuration(doc, sample_id, config_name):
     return measurements
 
 
-def extract_measurements_from_table(table, sample_id):
+def extract_measurements_from_table(table, sample_id, config_name="", test_params=None):
     """
     Extrait les mesures d'un tableau spécifique pour un Sample ID.
     Corrigé pour être plus robuste :
     - Fix indentation
     - Détection souple des headers
     - Mapping basé sur mots-clés
+    - Correction de position d'antenne selon config_name et axe depuis test_params
     """
     measurements = []
 
@@ -488,10 +514,32 @@ def extract_measurements_from_table(table, sample_id):
             print(f"      Ligne {row_idx+1}: vide, ignorée")
             continue
 
+        # Déterminer la position d'antenne selon le nom de configuration et l'axe
+        antenna_position = "1 (X)"  # Par défaut
+        
+        # Extraire l'axe depuis les paramètres de test
+        axis = "X"  # Par défaut
+        if test_params and "Axis" in test_params:
+            axis = test_params["Axis"]
+            print(f"      📍 Axe extrait depuis test_params: {axis}")
+        
+        # Déterminer le numéro (1 pour harness, 2 pour DUT)
+        if "dut" in config_name.lower():
+            antenna_position = f"2 ({axis})"
+            print(f"      📍 Position DUT détectée: {config_name} → 2 ({axis})")
+        elif "harness" in config_name.lower():
+            antenna_position = f"1 ({axis})"
+            print(f"      📍 Position harness détectée: {config_name} → 1 ({axis})")
+        else:
+            antenna_position = f"1 ({axis})"
+            print(f"      📍 Position par défaut: {config_name} → 1 ({axis})")
+        
         row_dict = {
             "Sample ID": sample_id,
             "Comment": "-",
-            "Section": "-"
+            "Section": "-",
+            "Applied limit": "RNDS-C-00517 V4.0",  # Limite par défaut
+            "Antenna Position": antenna_position
         }
 
         for i, h in enumerate(headers):
@@ -523,7 +571,20 @@ def extract_measurements_from_table(table, sample_id):
                 row_dict["Section"] = "Peak"
             elif ("lim" in h_low or "limit" in h_low) and ("avg" in h_low or "peak" in h_low or "q-peak" in h_low) and "cispr" not in h_low:
                 print(f"      -> Limite: {val}")
-                row_dict["Limite (dBµV/m)"] = clean_decimal(val)
+                # Créer des colonnes spécifiques selon le type de limite
+                if "limit avg" in h_low or "lim.avg" in h_low:
+                    row_dict["Limit Avg (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Avg (dBµV/m): {val}")
+                elif "limit q-peak" in h_low or "lim.q-peak" in h_low:
+                    row_dict["Limit Q-Peak (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Q-Peak (dBµV/m): {val}")
+                elif "limit peak" in h_low or "lim.peak" in h_low:
+                    row_dict["Limit Peak (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Peak (dBµV/m): {val}")
+                else:
+                    # Fallback pour les cas non reconnus
+                    row_dict["Limite (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limite générique (dBµV/m): {val}")
             elif "margin" in h_low or ("-" in h_low and ("peak" in h_low or "avg" in h_low or "q-peak" in h_low)):
                 print(f"      -> Margin: {val}")
                 row_dict["Margin (dB)"] = clean_decimal(val)
@@ -533,6 +594,9 @@ def extract_measurements_from_table(table, sample_id):
             elif "corr" in h_low:  # Correction
                 print(f"      -> Correction: {val}")
                 row_dict["Correction (dB)"] = clean_decimal(val)
+            elif "antenna" in h_low and "position" in h_low:  # Position d'antenne
+                print(f"      -> Position d'antenne: {val}")
+                row_dict["Antenna Position"] = val
             else:
                 print(f"      -> Autre colonne: {h} = {val}")
                 row_dict[h] = val
