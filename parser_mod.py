@@ -492,7 +492,9 @@ def extract_measurements_from_table(table, sample_id):
         row_dict = {
             "Sample ID": sample_id,
             "Comment": "-",
-            "Section": "-"
+            "Section": "-",
+            "Applied limit": "RNDS-C-00517 V4.0",  # Limite par défaut
+            "Antenna Position": "1 (X)"  # Position par défaut
         }
 
         for i, h in enumerate(headers):
@@ -524,7 +526,20 @@ def extract_measurements_from_table(table, sample_id):
                 row_dict["Section"] = "Peak"
             elif ("lim" in h_low or "limit" in h_low) and ("avg" in h_low or "peak" in h_low or "q-peak" in h_low) and "cispr" not in h_low:
                 print(f"      -> Limite: {val}")
-                row_dict["Limite (dBµV/m)"] = clean_decimal(val)
+                # Créer des colonnes spécifiques selon le type de limite
+                if "limit avg" in h_low or "lim.avg" in h_low:
+                    row_dict["Limit Avg (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Avg (dBµV/m): {val}")
+                elif "limit q-peak" in h_low or "lim.q-peak" in h_low:
+                    row_dict["Limit Q-Peak (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Q-Peak (dBµV/m): {val}")
+                elif "limit peak" in h_low or "lim.peak" in h_low:
+                    row_dict["Limit Peak (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limit Peak (dBµV/m): {val}")
+                else:
+                    # Fallback pour les cas non reconnus
+                    row_dict["Limite (dBµV/m)"] = clean_decimal(val)
+                    print(f"        -> Limite générique (dBµV/m): {val}")
             elif "margin" in h_low or ("-" in h_low and ("peak" in h_low or "avg" in h_low or "q-peak" in h_low)):
                 print(f"      -> Margin: {val}")
                 row_dict["Margin (dB)"] = clean_decimal(val)
@@ -534,6 +549,9 @@ def extract_measurements_from_table(table, sample_id):
             elif "corr" in h_low:  # Correction
                 print(f"      -> Correction: {val}")
                 row_dict["Correction (dB)"] = clean_decimal(val)
+            elif "antenna" in h_low and "position" in h_low:  # Position d'antenne
+                print(f"      -> Position d'antenne: {val}")
+                row_dict["Antenna Position"] = val
             else:
                 print(f"      -> Autre colonne: {h} = {val}")
                 row_dict[h] = val

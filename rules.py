@@ -18,10 +18,12 @@ def process_data(measurements):
     """
     Traite chaque ligne de mesure pour appliquer les règles métier CEM/EMI
     
-    RÈGLES APPLIQUÉES :
-    1. Calcul de la marge : Margin (dB) = Mesure (dBµV/m) - Limite (dBµV/m)
-    2. Détection du dépassement : Overtaking (dB) = max(0, -Margin)
-    3. Verdict de conformité : OK si Margin ≥ 0, NOK sinon
+    NOUVELLES RÈGLES APPLIQUÉES :
+    1. Filtrage par concordance des détecteurs (cispr.avg/lim.avg ✅, peak/lim.q-peak ❌)
+    2. Sélection des meilleures marges par position d'antenne et polarisation
+    3. Arrondi spécial : Négatif = tronquer, Positif = arrondir supérieur
+    4. Calcul de la marge : Margin (dB) = Limite - Mesure
+    5. Verdict de conformité : OK si Margin ≥ 0, NOK sinon
     
     Args:
         measurements (list): Liste des mesures brutes extraites
@@ -32,57 +34,168 @@ def process_data(measurements):
     processed = []
 
     # ========================================================================
-    # TRAITEMENT DE CHAQUE MESURE
+    # ÉTAPE 1: FILTRAGE PAR CONCORDANCE DES DÉTECTEURS
     # ========================================================================
     
-    for m in measurements:
+    concordant_measurements = []
+    print(f"\n=== ANALYSE DE CONCORDANCE DES DÉTECTEURS ===")
+    print(f"Nombre de mesures à analyser: {len(measurements)}")
+    
+    for i, m in enumerate(measurements):
+        detector = str(m.get("Detector type", "")).lower()
+        print(f"\n--- Mesure {i+1} ---")
+        print(f"Détecteur: '{detector}'")
+        print(f"Colonnes disponibles: {list(m.keys())}")
+        
+        # Vérifier la concordance en regardant les colonnes de limite disponibles
+        is_concordant = False
+        
+        # CISPR.AVG avec Lim.Avg (concordant)
+        if "cispr" in detector and "avg" in detector:
+            print("  -> Type: CISPR.AVG détecté")
+            # Vérifier si on a une colonne Limit Avg spécifique
+            if "Limit Avg (dBµV/m)" in m.keys():
+                is_concordant = True
+                print("  -> ✅ CONCORDANT (CISPR.AVG + Limit Avg)")
+            else:
+                print("  -> ❌ NON CONCORDANT (pas de Limit Avg)")
+        # Peak avec Lim.Peak (concordant)
+        elif "peak" in detector and "q-peak" not in detector:
+            print("  -> Type: Peak détecté")
+            # Vérifier si on a une colonne Limit Peak spécifique
+            if "Limit Peak (dBµV/m)" in m.keys():
+                is_concordant = True
+                print("  -> ✅ CONCORDANT (Peak + Limit Peak)")
+            else:
+                print("  -> ❌ NON CONCORDANT (pas de Limit Peak)")
+        # Q-Peak avec Lim.Q-Peak (concordant)
+        elif "q-peak" in detector:
+            print("  -> Type: Q-Peak détecté")
+            # Vérifier si on a une colonne Limit Q-Peak spécifique
+            if "Limit Q-Peak (dBµV/m)" in m.keys():
+                is_concordant = True
+                print("  -> ✅ CONCORDANT (Q-Peak + Limit Q-Peak)")
+            else:
+                print("  -> ❌ NON CONCORDANT (pas de Limit Q-Peak)")
+        else:
+            print(f"  -> Type: '{detector}' non reconnu")
+            print("  -> ❌ NON CONCORDANT (type non reconnu)")
+        
+        if is_concordant:
+            concordant_measurements.append(m)
+            print(f"  -> AJOUTÉ aux mesures concordantes")
+        else:
+            print(f"  -> REJETÉ (non concordant)")
+    
+    print(f"\n=== RÉSULTAT CONCORDANCE ===")
+    
+    print(f"Mesures concordantes trouvées: {len(concordant_measurements)} sur {len(measurements)}")
+    
+    # ========================================================================
+    # ÉTAPE 2: SÉLECTION DES MEILLEURES MARGES PAR POSITION/POLARISATION
+    # ========================================================================
+    
+    print(f"\n=== GROUPEMENT PAR POSITION/POLARISATION ===")
+    
+    # Grouper par position d'antenne et polarisation
+    grouped_by_position = {}
+    for m in concordant_measurements:
+        position = m.get("Antenna Position", "1 (X)")
+        polarization = m.get("Polarization", "Vertical")
+        key = f"{position}_{polarization}"
+        
+        if key not in grouped_by_position:
+            grouped_by_position[key] = []
+        grouped_by_position[key].append(m)
+        print(f"Mesure ajoutée au groupe: {key}")
+    
+    print(f"Groupes créés: {list(grouped_by_position.keys())}")
+    
+    # Sélectionner la meilleure marge pour chaque groupe
+    best_measurements = []
+    print(f"\n=== SÉLECTION DES MEILLEURES MARGES ===")
+    
+    for key, group in grouped_by_position.items():
+        print(f"\n--- Groupe: {key} ---")
+        print(f"Nombre de mesures dans ce groupe: {len(group)}")
+        
+        if not group:
+            continue
+            
+        # Calculer les marges et trouver la meilleure
+        best_measurement = None
+        best_margin = float('-inf')
+        
+        for i, m in enumerate(group):
+            print(f"  Mesure {i+1}:")
+            print(f"    Frequency: {m.get('Frequency (MHz)', 'N/A')}")
+            print(f"    Detector: {m.get('Detector type', 'N/A')}")
+            print(f"    Mesure: {m.get('Mesure (dBµV/m)', 'N/A')}")
+            print(f"    Limite: {m.get('Limite (dBµV/m)', 'N/A')}")
+            
+            # Calculer la marge en utilisant la bonne colonne de limite
+            try:
+                mesure = float(m.get("Mesure (dBµV/m)", 0))
+                
+                # Trouver la bonne colonne de limite selon le détecteur
+                detector = m.get("Detector type", "").lower()
+                if "cispr" in detector and "avg" in detector:
+                    limite = float(m.get("Limit Avg (dBµV/m)", 0))
+                elif "peak" in detector and "q-peak" not in detector:
+                    limite = float(m.get("Limit Peak (dBµV/m)", 0))
+                elif "q-peak" in detector:
+                    limite = float(m.get("Limit Q-Peak (dBµV/m)", 0))
+                else:
+                    limite = float(m.get("Limite (dBµV/m)", 0))  # Fallback
+                
+                marge_brute = limite - mesure
+                print(f"    Marge brute: {marge_brute}")
+                
+                # Appliquer l'arrondi spécial
+                if marge_brute < 0:
+                    # Négatif : tronquer (ex: -23.5 → -23)
+                    marge = int(marge_brute)
+                    print(f"    Marge arrondie (négatif): {marge}")
+                else:
+                    # Positif : arrondir supérieur (ex: 23.5 → 24)
+                    marge = int(marge_brute + 0.999999) if marge_brute != int(marge_brute) else int(marge_brute)
+                    print(f"    Marge arrondie (positif): {marge}")
+                
+                # Garder la meilleure marge
+                if marge > best_margin:
+                    best_margin = marge
+                    best_measurement = dict(m)
+                    best_measurement["Margin (dB)"] = marge
+                    print(f"    -> ✅ NOUVELLE MEILLEURE MARGE: {marge}")
+                else:
+                    print(f"    -> ❌ Marge inférieure: {marge} <= {best_margin}")
+                    
+            except (ValueError, TypeError) as e:
+                print(f"    -> ❌ ERREUR calcul marge: {e}")
+                continue
+        
+        if best_measurement:
+            best_measurements.append(best_measurement)
+            print(f"  -> MEILLEURE MESURE SÉLECTIONNÉE: marge = {best_margin}")
+        else:
+            print(f"  -> AUCUNE MESURE VALIDE DANS CE GROUPE")
+    
+    print(f"\n=== RÉSULTAT SÉLECTION ===")
+    print(f"Meilleures mesures sélectionnées: {len(best_measurements)}")
+    
+    # ========================================================================
+    # ÉTAPE 3: TRAITEMENT FINAL ET VERDICTS
+    # ========================================================================
+    
+    for m in best_measurements:
         # Créer une copie de la mesure pour éviter de modifier l'original
         new_row = dict(m)
-
-        # ========================================================================
-        # IDENTIFICATION DES COLONNES
-        # ========================================================================
-        
-        # Créer un mapping insensible à la casse pour identifier les colonnes
-        keys = {k.lower(): k for k in m.keys()}
-        
-        # Identifier les colonnes clés (avec fallback sur différents noms possibles)
-        col_mesure = next((keys[k] for k in keys if "cispr" in k or "mesure" in k), None)
-        col_limite = next((keys[k] for k in keys if "limit" in k or "limite" in k), None)
-
-        # ========================================================================
-        # CALCUL DE LA MARGE (RÈGLE MÉTIER PRINCIPALE)
-        # ========================================================================
-        
-        # Calculer la marge si les colonnes mesure et limite sont disponibles
-        if col_mesure and col_limite:
-            try:
-                # Conversion des valeurs numériques
-                mesure = float(m[col_mesure])
-                limite = float(m[col_limite])
-                
-                # RÈGLE CEM : Marge = Limite - Mesure (en dB)
-                # Note: Dans le contexte CEM, une marge positive = conforme
-                marge = round(limite - mesure, 2)
-            except Exception:
-                # En cas d'erreur, utiliser la marge existante ou marquer N/A
-                marge = m.get("Margin (dB)", "N/A")
-        else:
-            # Si pas de colonnes mesure/limite, utiliser la marge existante
-            marge = m.get("Margin (dB)", "N/A")
-
-        # ========================================================================
-        # ATTRIBUTION DES VALEURS CALCULÉES
-        # ========================================================================
-        
-        new_row["Margin (dB)"] = marge
-        new_row["Overtaking (dB)"] = "-"  # Non implémenté dans cette version
 
         # ========================================================================
         # VERDICT DE CONFORMITÉ
         # ========================================================================
         
-        # RÈGLE CEM : Conformité OK si marge ≥ 0, NOK sinon
+        marge = new_row.get("Margin (dB)", 0)
         if isinstance(marge, (int, float)) and marge >= 0:
             conformity = "OK"
         elif isinstance(marge, (int, float)):
@@ -91,9 +204,10 @@ def process_data(measurements):
             conformity = "-"
 
         new_row["Conformity"] = conformity
+        new_row["Overtaking (dB)"] = "-"  # Non implémenté dans cette version
         
         # ========================================================================
-        # PRÉSERVER LES COLONNES IMPORTANTES DU PARSER
+        # PRÉSERVER LES COLONNES IMPORTANTES
         # ========================================================================
         
         # S'assurer que les colonnes importantes sont préservées
@@ -117,6 +231,8 @@ def process_data(measurements):
             new_row["Sample ID"] = m.get("Sample ID", "-")
         if "Comment" not in new_row:
             new_row["Comment"] = m.get("Comment", "-")
+        if "Antenna Position" not in new_row:
+            new_row["Antenna Position"] = m.get("Antenna Position", "1 (X)")
         
         processed.append(new_row)
 

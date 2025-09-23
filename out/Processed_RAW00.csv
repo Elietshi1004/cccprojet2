@@ -1,0 +1,2 @@
+Sample ID,Comment,Section,Applied limit,Antenna Position,Frequency (MHz),S R,Mesure (dBµV/m),Detector type,Limit Peak (dBµV/m),Margin (dB),Polarization,Correction (dB),Conformity,Overtaking (dB),Limite (dBµV/m),Configuration
+CRE2-2025-TP002-02,-,Peak,RNDS-C-00517 V4.0,1 (X),27.26875,2.0,22.15,Peak,58.0,36,Vertical,10.29,OK,-,-,ER_In front of harness RBW 9kHz

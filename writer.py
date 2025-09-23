@@ -224,15 +224,15 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
             else:
                 doc.add_paragraph("Paramètres de test : Aucun paramètre trouvé pour cette configuration")
             
-            # Créer le tableau avec les colonnes attendues
+            # Créer le tableau avec les colonnes selon l'image
             table = doc.add_table(rows=1, cols=9)
             table.style = 'Table Grid'
             
-            # En-têtes selon les spécifications
+            # En-têtes selon l'image fournie
             headers = [
-                "Section", "Frequency (MHz)", "SR", "Polarization", 
-                "Correction (dB)", "Mesure (dBµV/m)", "Limite (dBµV/m)", 
-                "Marge (dB)", "Verdict"
+                "Antenna Position (Axis equipment)", "Polarization of antenna", 
+                "Margin (dB)", "Overtaking (dB)", "Conformity", "Frequency (MHz)", 
+                "Applied limit", "Detector type", "Comment"
             ]
             
             hdr = table.rows[0].cells
@@ -242,58 +242,55 @@ def export_word_multiple_samples(all_samples_data, all_processed_data, all_summa
                 run.bold = True
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Texte noir
             
-            # Ajouter les données
+            # Ajouter les données selon le nouveau format
             for row in processed:
                 if isinstance(row, dict):  # Vérifier que c'est un dictionnaire
                     cells = table.add_row().cells
                     
-                    # Section (détecteur type)
-                    cells[0].text = str(row.get("Detector type", "-"))
+                    # Antenna Position (Axis equipment)
+                    cells[0].text = str(row.get("Antenna Position", "1 (X)"))
                     
-                    # Frequency (MHz) - formatage selon spécifications
-                    freq = row.get("Frequency (MHz)", "")
-                    if isinstance(freq, (int, float)):
-                        if freq < 10:
-                            cells[1].text = f"{freq:.5f}"
-                        else:
-                            cells[1].text = f"{freq:.3f}"
-                    else:
-                        cells[1].text = str(freq)
+                    # Polarization of antenna
+                    cells[1].text = str(row.get("Polarization", "Vertical"))
                     
-                    # SR
-                    cells[2].text = str(row.get("S R", "-"))
-                    
-                    # Polarization
-                    cells[3].text = str(row.get("Polarization", "Vertical"))
-                    
-                    # Correction (dB)
-                    correction = row.get("Correction (dB)", "-")
-                    if isinstance(correction, (int, float)):
-                        cells[4].text = f"{correction:.2f}"
-                    else:
-                        cells[4].text = str(correction)
-                    
-                    # Mesure (dBµV/m)
-                    cells[5].text = str(row.get("Mesure (dBµV/m)", "-"))
-                    
-                    # Limite (dBµV/m)
-                    cells[6].text = str(row.get("Limite (dBµV/m)", "-"))
-                    
-                    # Marge (dB) - formatage 2 décimales
+                    # Margin (dB) - formatage selon nouvelles règles
                     margin = row.get("Margin (dB)", "-")
                     if isinstance(margin, (int, float)):
-                        cells[7].text = f"{margin:.2f}"
+                        cells[2].text = str(int(margin))  # Affichage en entier selon nouvelles règles
                     else:
-                        cells[7].text = str(margin)
+                        cells[2].text = str(margin)
                     
-                    # Verdict avec couleur
+                    # Overtaking (dB) - toujours "-" pour l'instant
+                    cells[3].text = str(row.get("Overtaking (dB)", "-"))
+                    
+                    # Conformity avec couleur
                     verdict_txt = str(row.get("Conformity", "-"))
-                    run = cells[8].paragraphs[0].add_run(verdict_txt)
+                    run = cells[4].paragraphs[0].add_run(verdict_txt)
                     if verdict_txt.upper() == "OK":
                         run.font.color.rgb = RGBColor(0, 128, 0)  # vert
                     elif verdict_txt.upper() == "NOK":
                         run.font.color.rgb = RGBColor(200, 0, 0)  # rouge
                         run.bold = True
+                    
+                    # Frequency (MHz) - formatage selon spécifications
+                    freq = row.get("Frequency (MHz)", "")
+                    if isinstance(freq, (int, float)):
+                        if freq < 10:
+                            cells[5].text = f"{freq:.5f}"
+                        else:
+                            cells[5].text = f"{freq:.3f}"
+                    else:
+                        cells[5].text = str(freq)
+                    
+                    # Applied limit - utiliser la limite extraite
+                    cells[6].text = str(row.get("Applied limit", "RNDS-C-00517 V4.0"))
+                    
+                    # Detector type
+                    cells[7].text = str(row.get("Detector type", "-"))
+                    
+                    # Comment - toujours vide selon l'image
+                    cells[8].text = str(row.get("Comment", ""))
+                    
                 else:
                     print(f"Erreur: row n'est pas un dictionnaire: {type(row)} - {row}")
             
